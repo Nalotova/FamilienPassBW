@@ -26,7 +26,7 @@ export const PlaceCard: React.FC<PlaceCardProps> = ({ place, isUsed, onToggleUse
     return t.suitMixedWeather;
   })();
 
-  const hours = Math.round(place.travelTimeMins / 60);
+  const hours = Math.floor(place.travelTimeMins / 60);
   const mins = place.travelTimeMins % 60;
   const formattedTime = hours > 0 
     ? `~${hours} ${t.h} ${mins > 0 ? `${mins} ${t.min}` : ''}`

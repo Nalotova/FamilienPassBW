@@ -70,6 +70,7 @@ export function useAppStore() {
       ...s,
       language: lang,
     }));
+    window.location.reload();
   };
 
   const setBaseLocation = (location: { name: string; lat: number; lng: number }) => {

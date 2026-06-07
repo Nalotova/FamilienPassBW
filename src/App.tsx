@@ -16,6 +16,7 @@ import {
   UI_TRANSLATIONS,
   Language 
 } from './translationsAndCoords';
+import { loadRouteMatrix } from './routesService';
 import { Map, Ticket, Lightbulb, Filter, Search, MapPin, Globe, RefreshCw } from 'lucide-react';
 
 export default function App() {
@@ -29,6 +30,8 @@ export default function App() {
   } = useAppStore();
 
   const [photosCache, setPhotosCacheState] = useState(() => getPhotosCache());
+  const [routesCache, setRoutesCache] = useState<Record<string, any>>({});
+  const [routesLoading, setRoutesLoading] = useState(false);
   const [activeTab, setActiveTab] = useState<'catalog' | 'coupons' | 'ideas'>('catalog');
   const [selectedPlace, setSelectedPlace] = useState<Place | null>(null);
   
@@ -83,15 +86,40 @@ export default function App() {
     }
   }, []);
 
+  // Load Route Matrix when base location changes
+  useEffect(() => {
+    async function loadRoutes() {
+      setRoutesLoading(true);
+      const placesWithCoords = PLACES.map(p => ({
+        id: p.id,
+        name: p.name,
+        lat: SIGHT_COORDINATES[p.id]?.lat || 0,
+        lng: SIGHT_COORDINATES[p.id]?.lng || 0
+      })).filter(p => p.lat !== 0 && p.lng !== 0);
+
+      const routes = await loadRouteMatrix(state.baseLocation, placesWithCoords);
+      setRoutesCache(routes);
+      setRoutesLoading(false);
+    }
+    loadRoutes();
+  }, [state.baseLocation]);
+
   // Derive dynamic list of sights with coordinates, travel times, and translations
   const placesWithCoordsAndTranslations = useMemo(() => {
     return PLACES.map(p => {
       const coords = SIGHT_COORDINATES[p.id];
       let distanceKm = p.distanceKm;
       let travelTimeMins = p.travelTimeMins;
+      let routeSource = "estimated" as "google_routes" | "estimated";
 
-      // Calculate relative Haversine distance if coordinates are present
-      if (coords) {
+      // 1. Try Google Routes API Matrix
+      const route = routesCache[p.id];
+      if (route) {
+        distanceKm = route.distanceKm;
+        travelTimeMins = route.durationMins;
+        routeSource = "google_routes";
+      } else if (coords) {
+        // Fallback: Haversine distance
         distanceKm = getHaversineDistance(
           state.baseLocation.lat,
           state.baseLocation.lng,
@@ -102,10 +130,14 @@ export default function App() {
         // Approximate driving travel times based on computed distance
         if (distanceKm === 0) {
           travelTimeMins = 0;
-        } else if (distanceKm < 10) {
-          travelTimeMins = Math.round(distanceKm * 2) + 5; // e.g. 5km is 15 mins (city speed)
+        } else if (distanceKm < 15) {
+          travelTimeMins = Math.round(distanceKm * 2.2) + 5;
+        } else if (distanceKm < 60) {
+          travelTimeMins = Math.round(distanceKm * 1.6) + 8;
+        } else if (distanceKm < 120) {
+          travelTimeMins = Math.round(distanceKm * 1.2) + 12;
         } else {
-          travelTimeMins = Math.round((distanceKm / 85) * 60) + 12; // 85 km/h average + overhead
+          travelTimeMins = Math.round(distanceKm * 1.0) + 20;
         }
       }
 

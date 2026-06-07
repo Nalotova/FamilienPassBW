@@ -62,6 +62,93 @@ async function startServer() {
     }
   });
 
+  // API Route: Google Routes Matrix Proxy
+  app.post("/api/routes/matrix", async (req, res) => {
+    try {
+      const { origin, destinations } = req.body;
+
+      if (!origin || !destinations || !Array.isArray(destinations)) {
+        return res.status(400).json({ error: "Origin and destinations are required" });
+      }
+
+      const apiKey = getApiKey();
+      if (!apiKey) {
+        return res.status(200).json({
+          error: "API_KEY_MISSING",
+          message: "Google Maps API Key is not configured"
+        });
+      }
+
+      const response = await fetch("https://routes.googleapis.com/distanceMatrix/v2:computeRouteMatrix", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "X-Goog-Api-Key": apiKey,
+          "X-Goog-FieldMask": "originIndex,destinationIndex,duration,distanceMeters,status,condition"
+        },
+        body: JSON.stringify({
+          origins: [
+            {
+              waypoint: {
+                location: {
+                  latLng: {
+                    latitude: origin.lat,
+                    longitude: origin.lng
+                  }
+                }
+              }
+            }
+          ],
+          destinations: destinations.map((d) => ({
+            waypoint: {
+              location: {
+                latLng: {
+                  latitude: d.lat,
+                  longitude: d.lng
+                }
+              }
+            }
+          })),
+          travelMode: "DRIVE",
+          routingPreference: "TRAFFIC_UNAWARE"
+        })
+      });
+
+      if (!response.ok) {
+        const errorText = await response.text();
+        console.error("Google Routes API error:", response.status, errorText);
+        return res.status(response.status).json({ error: "Google Routes API Error", details: errorText });
+      }
+
+      const data = await response.json();
+
+      const routes: any = {};
+      data.forEach((item: any) => {
+        const destination = destinations[item.destinationIndex];
+
+        if (!destination) return;
+        if (item.status && item.status.code) {
+          console.warn("Route error for", destination.name, item.status);
+          return;
+        }
+
+        const durationSeconds = parseInt(String(item.duration || "0").replace("s", ""), 10);
+        const distanceMeters = item.distanceMeters || 0;
+
+        routes[destination.id] = {
+          distanceKm: Math.round(distanceMeters / 1000),
+          durationMins: Math.round(durationSeconds / 60),
+          source: "google_routes"
+        };
+      });
+
+      return res.json({ routes });
+    } catch (error: any) {
+      console.error("Routes matrix proxy error:", error);
+      return res.status(500).json({ error: error.message });
+    }
+  });
+
   // API Route: Places Photo Proxy (Pipes the photo from Google API to browser directly)
   app.get("/api/places/photo", async (req, res) => {
     try {
