@@ -28,16 +28,19 @@ export async function loadRouteMatrix(origin: { lat: number; lng: number }, plac
       body: JSON.stringify({ origin, destinations })
     });
     
-    const data = await response.json();
-    
-    if (data.routes) {
-        cache[cacheKey] = {
-            origin,
-            updatedAt: new Date().toISOString(),
-            routes: data.routes
-        };
-        localStorage.setItem(ROUTES_CACHE_KEY, JSON.stringify(cache));
-        return data.routes;
+    if (response.ok) {
+      const data = await response.json();
+      if (data.routes) {
+          cache[cacheKey] = {
+              origin,
+              updatedAt: new Date().toISOString(),
+              routes: data.routes
+          };
+          localStorage.setItem(ROUTES_CACHE_KEY, JSON.stringify(cache));
+          return data.routes;
+      }
+    } else {
+      console.error(`Routes matrix API returned ${response.status}`);
     }
   } catch (error) {
     console.error("Failed to fetch route matrix:", error);

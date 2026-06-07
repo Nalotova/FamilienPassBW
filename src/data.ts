@@ -32,7 +32,7 @@ export const PLACES: Place[] = [
   {
     id: 'p5', name: 'Barockschloss Mannheim', city: 'Mannheim', type: 'замок',
     description: 'Один из самых больших барочных дворцов Европы.',
-    couponType: 'discount', couponInfo: {"de":"Kostenfreier Eintritt","ru":"Бесплатный вход","en":"Free entry"}, distanceKm: 180, travelTimeMins: 120,
+    couponType: 'free', couponInfo: {"de":"Kostenfreier Eintritt","ru":"Бесплатный вход","en":"Free entry"}, distanceKm: 180, travelTimeMins: 120,
     weather: 'mixed', goodForTeens: true, photoUrl: 'https://images.unsplash.com/photo-1585128792020-803d29415281?auto=format&fit=crop&w=600&q=80',
     googleMapsUrl: 'https://maps.app.goo.gl/MannheimSchloss', website: 'https://www.schloss-mannheim.de'
   },
@@ -239,7 +239,7 @@ export const PLACES: Place[] = [
   {
     id: 'p34', name: 'Ravensburger Spieleland', city: 'Meckenbeuren', type: 'парк',
     description: 'Семейный парк развлечений с аттракционами и играми от Ravensburger.',
-    couponType: 'discount', couponInfo: {"de":"Aktionspreis: 35 € p.P. (statt 48 €), nur gültig am 27.06. und 28.06.","ru":"Акционная цена: 35 € с человека (вместо 48 €), действительно только 27.06 и 28.06","en":"Promo price: €35 per person (instead of €48), valid only on 27.06 and 28.06"}, distanceKm: 130, travelTimeMins: 100,
+    couponType: 'special_price', couponInfo: {"de":"Aktionspreis: 35 € p.P. (statt 48 €), nur gültig am 27.06. und 28.06.","ru":"Акционная цена: 35 € с человека (вместо 48 €), действительно только 27.06 и 28.06","en":"Promo price: €35 per person (instead of €48), valid only on 27.06 and 28.06"}, distanceKm: 130, travelTimeMins: 100,
     weather: 'mixed', goodForTeens: true, photoUrl: 'https://images.unsplash.com/photo-1496247749665-49cf5b1022e9?auto=format&fit=crop&w=600&q=80',
     googleMapsUrl: 'https://maps.app.goo.gl/Spieleland', website: 'https://www.spieleland.de'
   },
@@ -276,7 +276,7 @@ export const PLACES: Place[] = [
   {
     id: 'p39', name: 'Keltenmuseum Heuneburg', city: 'Herbertingen', type: 'музей',
     description: 'Музей под открытым небом на месте древнего кельтского поселения.',
-    couponType: 'free', couponInfo: {"de":"Ermäßigter Familieneintritt, Sonderpreis 5 €. Saison: 01.04. – 01.11.","ru":"Льготный семейный вход, специальная цена 5 €. Сезон: 01.04 – 01.11.","en":"Reduced family admission, special price €5. Season: 01.04 – 01.11."}, distanceKm: 120, travelTimeMins: 90,
+    couponType: 'special_price', couponInfo: {"de":"Ermäßigter Familieneintritt, Sonderpreis 5 €. Saison: 01.04. – 01.11.","ru":"Льготный семейный вход, специальная цена 5 €. Сезон: 01.04 – 01.11.","en":"Reduced family admission, special price €5. Season: 01.04 – 01.11."}, distanceKm: 120, travelTimeMins: 90,
     weather: 'mixed', goodForTeens: true, photoUrl: 'https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?auto=format&fit=crop&w=600&q=80',
     googleMapsUrl: 'https://maps.app.goo.gl/Heuneburg', website: 'https://www.heuneburg.de'
   },
@@ -290,14 +290,14 @@ export const PLACES: Place[] = [
   {
     id: 'p41', name: 'Urweltsteinbruch Holzmaden', city: 'Holzmaden', type: 'другое',
     description: 'Карстовый карьер, где можно самим искать окаменелости.',
-    couponType: 'discount', couponInfo: {"de":"Kostenfreier Eintritt","ru":"Бесплатный вход","en":"Free entry"}, distanceKm: 160, travelTimeMins: 110,
+    couponType: 'free', couponInfo: {"de":"Kostenfreier Eintritt","ru":"Бесплатный вход","en":"Free entry"}, distanceKm: 160, travelTimeMins: 110,
     weather: 'outdoor', goodForTeens: true, photoUrl: 'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=600&q=80',
     googleMapsUrl: 'https://maps.app.goo.gl/Holzmaden', website: 'https://www.urweltsteinbruch.de'
   },
   {
     id: 'p42', name: 'Wildkatzenwelt Stromberg', city: 'Cleebronn', type: 'парк',
     description: 'Центр изучения диких кошек в природном парке.',
-    couponType: 'discount', couponInfo: {"de":"Familienpreis 3,50 €","ru":"Семейная цена 3,50 €","en":"Family price €3.50"}, distanceKm: 160, travelTimeMins: 120,
+    couponType: 'special_price', couponInfo: {"de":"Familienpreis 3,50 €","ru":"Семейная цена 3,50 €","en":"Family price €3.50"}, distanceKm: 160, travelTimeMins: 120,
     weather: 'outdoor', goodForTeens: true, photoUrl: 'https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?auto=format&fit=crop&w=600&q=80',
     googleMapsUrl: 'https://maps.app.goo.gl/Stromberg', website: 'https://www.naturpark-stromberg-heuchelberg.de'
   },
@@ -326,7 +326,7 @@ export const PLACES: Place[] = [
     id: 'p46', name: 'Mercedes-Benz Museum', city: 'Stuttgart', type: 'музей',
     queryName: 'Mercedes-Benz Museum Stuttgart Germany',
     description: 'Грандиозный музей истории автомобилестроения бренда Mercedes-Benz.',
-    couponType: 'discount', couponInfo: {"de":"Kostenfreier Eintritt","ru":"Бесплатный вход","en":"Free entry"}, distanceKm: 130, travelTimeMins: 120,
+    couponType: 'free', couponInfo: {"de":"Kostenfreier Eintritt","ru":"Бесплатный вход","en":"Free entry"}, distanceKm: 130, travelTimeMins: 120,
     weather: 'indoor', goodForTeens: true, photoUrl: 'https://images.unsplash.com/photo-1617814076367-b759c7d7e738?auto=format&fit=crop&w=600&q=80',
     googleMapsUrl: 'https://maps.app.goo.gl/Mercedes', website: 'https://www.mercedes-benz.com/museum'
   },
@@ -361,14 +361,14 @@ export const PLACES: Place[] = [
   {
     id: 'p51', name: 'Schwarzwaldhaus der Sinne', city: 'Grafenhausen', type: 'музей',
     description: 'Интерактивный музей в Шварцвальде, посвященный пяти чувствам.',
-    couponType: 'discount', couponInfo: {"de":"Kostenfreier Eintritt","ru":"Бесплатный вход","en":"Free entry"}, distanceKm: 60, travelTimeMins: 60,
+    couponType: 'free', couponInfo: {"de":"Kostenfreier Eintritt","ru":"Бесплатный вход","en":"Free entry"}, distanceKm: 60, travelTimeMins: 60,
     weather: 'indoor', goodForTeens: true, photoUrl: 'https://images.unsplash.com/photo-1509198397868-475647b2a1e5?auto=format&fit=crop&w=600&q=80',
     googleMapsUrl: 'https://maps.app.goo.gl/SchwarzHaus', website: 'https://www.schwarzwaldhausdersinne.de'
   },
   {
     id: 'p52', name: 'Freizeitzentrum Hardtsee', city: 'Ubstadt-Weiher', type: 'бассейн',
     description: 'Большое озеро для купания с песчаным пляжем и инфраструктурой.',
-    couponType: 'special_price', couponInfo: {"de":"Ermäßigte Jahresfamilienkarte","ru":"Годовой семейный абонемент со скидкой","en":"Discounted family annual ticket"}, distanceKm: 140, travelTimeMins: 100,
+    couponType: 'discount', couponInfo: {"de":"Ermäßigte Jahresfamilienkarte","ru":"Годовой семейный абонемент со скидкой","en":"Discounted family annual ticket"}, distanceKm: 140, travelTimeMins: 100,
     weather: 'outdoor', goodForTeens: true, photoUrl: 'https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=600&q=80',
     googleMapsUrl: 'https://maps.app.goo.gl/Hardtsee', website: 'https://www.hardtsee.de'
   },
@@ -376,7 +376,7 @@ export const PLACES: Place[] = [
     id: 'p53', name: 'Insel Mainau', city: 'Konstanz', type: 'парк',
     queryName: 'Insel Mainau Germany',
     description: 'Знаменитый «Остров цветов» на Боденском озере.',
-    couponType: 'discount', couponInfo: {"de":"Aktionspreis Familie mit 1 Erw. 42 €; Familie mit 2 Erw. 68 €, nur an der Kasse einlösbar 30.07. – 12.09.","ru":"Акционная семейная цена: 42 € для семьи с 1 взрослым, 68 € для семьи с 2 взрослыми. Только в кассе. Действует 30.07 – 12.09.","en":"Promo family price: €42 for family with 1 adult, €68 for family with 2 adults. Only at box office. Valid 30.07 – 12.09."}, distanceKm: 100, travelTimeMins: 90,
+    couponType: 'special_price', couponInfo: {"de":"Aktionspreis Familie mit 1 Erw. 42 €; Familie mit 2 Erw. 68 €, nur an der Kasse einlösbar 30.07. – 12.09.","ru":"Акционная семейная цена: 42 € для семьи с 1 взрослым, 68 € для семьи с 2 взрослыми. Только в кассе. Действует 30.07 – 12.09.","en":"Promo family price: €42 for family with 1 adult, €68 for family with 2 adults. Only at box office. Valid 30.07 – 12.09."}, distanceKm: 100, travelTimeMins: 90,
     weather: 'outdoor', goodForTeens: true, photoUrl: 'https://images.unsplash.com/photo-1465146344425-f00d5f5c8f07?auto=format&fit=crop&w=600&q=80',
     googleMapsUrl: 'https://maps.app.goo.gl/Mainau', website: 'https://www.mainau.de'
   },
