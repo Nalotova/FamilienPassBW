@@ -1,0 +1,6 @@
+{
+  "name": "Landesfamilienpass BW",
+  "description": "Интерактивный путеводитель по Landesfamilienpass Baden-Württemberg с умным расчетом расстояний, поддержкой геолокации и мультиязычностью.",
+  "requestFramePermissions": ["geolocation"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

@@ -1,0 +1,34 @@
+@import "tailwindcss";
+
+@theme {
+  --color-natural-50: #F3EFE7;
+  --color-natural-100: #EAE4D7;
+  --color-natural-200: #D9C5A0;
+  --color-natural-500: #6a8b7a;
+  --color-natural-600: #5A7D6C;
+  --color-natural-700: #4A6658;
+  --color-natural-800: #3a4a4a;
+  --color-natural-900: #2D3A3A;
+
+  --color-bg-surface: #FDFCF9;
+  --color-border-subtle: #E9E4DB;
+}
+
+/* Global Mobile-First Overflow Prevention & Layout Optimization */
+html, body {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+*, ::before, ::after {
+  box-sizing: border-box;
+}
+
+/* Hide scrollbar utility for navigation tabs and horizontal lists */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
